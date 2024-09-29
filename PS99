@@ -1,5 +1,5 @@
-
-local Window = Library.CreateLib("Durex Hub |â€¢Pet Simulator 99", "DarkTheme")
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+local Window = OroinLib.CreateLib("Durex Hub |â€¢Pet Simulator 99", "DarkTheme")
 
 local Tab = Window:NewTab("Main")
 local Section = Tab:NewSection("Main Features")
