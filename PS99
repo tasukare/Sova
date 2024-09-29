@@ -1,0 +1,251 @@
+local Library = loadstring(game:HttpGet("https://pastebin.com/raw/vff1bQ9F"))()
+local Window = Library.CreateLib("Durex Hub |â€¢Pet Simulator 99", "DarkTheme")
+
+local Tab = Window:NewTab("Main")
+local Section = Tab:NewSection("Main Features")
+
+Section:NewButton("Auto Claim Free Gifts", "ButtonInfo", function()
+while true do
+    for giftValue = 1, 12 do
+        local args = {
+            [1] = giftValue
+        }
+        
+        game:GetService("ReplicatedStorage").Network:FindFirstChild("Redeem Free Gift"):InvokeServer(unpack(args))
+        wait(2)  -- Wait for 1 second before redeeming the next gift
+    end
+end
+    print("Clicked")
+end)
+
+local VirtualUser = game:GetService("VirtualUser")
+local isAntiAfkActive = false
+
+local function handleAntiAfkToggle(state)
+    isAntiAfkActive = state
+    if isAntiAfkActive then
+        game.Players.LocalPlayer.Idled:Connect(function()
+            VirtualUser:CaptureController()
+            VirtualUser:ClickButton2(Vector2.new())
+        end)
+    else
+        game.Players.LocalPlayer.Idled:Disconnect()
+    end
+end
+
+Section:NewButton("Teleport Best Area", "Teleports To Current best Area", function()
+local args = {
+    [1] = "Kawaii Temple"
+}
+
+game:GetService("ReplicatedStorage").Network.Teleports_RequestTeleport:InvokeServer(unpack(args))
+end)
+
+Section:NewToggle("Enable Anti-AFK", "Toggle anti-AFK feature", function(state)
+    handleAntiAfkToggle(state)
+end)
+
+Section:NewToggle("Clicking Aura", "Toggles Click Aura", function(state)
+    if state then
+        print("Toggle On")
+    else
+        print("Toggle Off")
+    end
+end)
+
+local function consumeMiniPinata()
+    local args = {
+        [1] = "bd3ce58f6ec94a71919e68ff24f03ec2"
+    }
+    game:GetService("ReplicatedStorage").Network.MiniPinata_Consume:InvokeServer(unpack(args))
+end
+
+local function consumeBreakableSprinkler()
+    local args = {
+        [1] = "Breakable Sprinkler",
+        [2] = "febbe0eb6fc44cf2b467a07e69423808"
+    }
+    game:GetService("ReplicatedStorage").Network:FindFirstChild("Sprinklers: Consume"):InvokeServer(unpack(args))
+end
+
+local function consumeMiniLuckyBlock()
+    local args = {
+        [1] = "ebd2e640fe13486f8f4ee2e34f5d897e"
+    }
+    game:GetService("ReplicatedStorage").Network.MiniLuckyBlock_Consume:InvokeServer(unpack(args))
+end
+
+local function consumeTNTCrate()
+    game:GetService("ReplicatedStorage").Network.TNT_Crate_Consume:InvokeServer()
+end
+
+local function spawnComet()
+    local args = {
+        [1] = "28ba4aa51c0649228f61c03a924615f5"
+    }
+    game:GetService("ReplicatedStorage").Network.Comet_Spawn:InvokeServer(unpack(args))
+end
+
+local function spawnCoinJar()
+    local args = {
+        [1] = "5819fd1cce034f07be8e5197256c9edc"
+    }
+    game:GetService("ReplicatedStorage").Network.CoinJar_Spawn:InvokeServer(unpack(args))
+end
+
+local function consumeTNT()
+    game:GetService("ReplicatedStorage").Network.TNT_Consume:InvokeServer()
+end
+
+local delay = 3 -- Delay in seconds between each function call
+
+Section:NewToggle("Auto Use Mini Pinata", "Toggle for Mini Pinata consumption", function(state)
+    if state then
+        while state do
+            consumeMiniPinata()
+            wait(delay)
+        end
+    end
+end)
+
+local Section = Tab:NewSection("Item Toggles")
+
+Section:NewToggle("Auto Use Breakable Sprinkler", "Toggle for Breakable Sprinkler consumption", function(state)
+    if state then
+        while state do
+            consumeBreakableSprinkler()
+            wait(delay)
+        end
+    end
+end)
+
+Section:NewToggle("Auto Use Mini Lucky Block", "Toggle for Mini Lucky Block consumption", function(state)
+    if state then
+        while state do
+            consumeMiniLuckyBlock()
+            wait(delay)
+        end
+    end
+end)
+
+Section:NewToggle("Auto Use TNT Crate", "Toggle for TNT Crate consumption", function(state)
+    if state then
+        while state do
+            consumeTNTCrate()
+            wait(delay)
+        end
+    end
+end)
+
+Section:NewToggle("Auto Use Comet", "Toggle for Comet spawning", function(state)
+    if state then
+        while state do
+            spawnComet()
+            wait(delay)
+        end
+    end
+end)
+
+Section:NewToggle("Auto Use Coin Jar", "Toggle for Coin Jar spawning", function(state)
+    if state then
+        while state do
+            spawnCoinJar()
+            wait(delay)
+        end
+    end
+end)
+
+Section:NewToggle("Auto Use TNT", "Toggle for TNT consumption", function(state)
+    if state then
+        while state do
+            consumeTNT()
+            wait(delay)
+        end
+    end
+end)
+
+local Tab = Window:NewTab("Machines")
+local Section = Tab:NewSection("Machines.Upgrade")
+
+local function requestEquipSlotsMachine(num)
+    local args = {
+        [1] = num
+    }
+    game:GetService("ReplicatedStorage").Network.EquipSlotsMachine_RequestPurchase:InvokeServer(unpack(args))
+end
+
+local function requestEggHatchSlotsMachine(num)
+    local args = {
+        [1] = num
+    }
+    game:GetService("ReplicatedStorage").Network.EggHatchSlotsMachine_RequestPurchase:InvokeServer(unpack(args))
+end
+
+local equipAutomationEnabled = false
+local eggAutomationEnabled = false
+
+local equipCounter = 1
+local eggCounter = 1
+
+local function toggleEquipAutomation(state)
+    equipAutomationEnabled = state
+    while equipAutomationEnabled and equipCounter <= 99 do
+        requestEquipSlotsMachine(equipCounter)
+        equipCounter = equipCounter + 1
+        wait(1)  -- Delay between requests (adjust as needed)
+    end
+end
+
+local function toggleEggAutomation(state)
+    eggAutomationEnabled = state
+    while eggAutomationEnabled and eggCounter <= 99 do
+        requestEggHatchSlotsMachine(eggCounter)
+        eggCounter = eggCounter + 1
+        wait(1)  -- Delay between requests (adjust as needed)
+    end
+end
+
+Section:NewToggle("Equip Slots Machine Automation", "Toggle to automate Equip Slots Machine requests", function(state)
+    if state then
+        equipAutomationEnabled = true
+        equipCounter = 1
+        toggleEquipAutomation(true)
+    else
+        equipAutomationEnabled = false
+    end
+end)
+
+Section:NewToggle("Egg Hatch Slots Machine Automation", "Toggle to automate Egg Hatch Slots Machine requests", function(state)
+    if state then
+        eggAutomationEnabled = true
+        eggCounter = 1
+        toggleEggAutomation(true)
+    else
+        eggAutomationEnabled = false
+    end
+end)
+
+local Tab = Window:NewTab("Player")
+local Section = Tab:NewSection("Player Settings")
+
+local Tab = Window:NewTab("Event")
+local Section = Tab:NewSection("Kawaii Event")
+local Section = Tab:NewSection("Kawaii Is A Update So I put In Main")
+
+local Tab = Window:NewTab("Settings")
+local Section = Tab:NewSection("Main Settings")
+
+Section:NewKeybind("UI Toggle Keybind", "Keybind gor Toggling UI", Enum.KeyCode.G, function()
+	Library:ToggleUI()
+end)
+
+local Tab = Window:NewTab("Credit")
+local Section = Tab:NewSection("Credit")
+
+Section:NewKeybind("youtube.com/@RenceeScripts", "KeybindInfo", Enum.KeyCode.F, function()
+	print("You just clicked the bind")
+end)
+
+Section:NewKeybind("Discord.gg/2pud5FTqsz", "KeybindInfo", Enum.KeyCode.E, function()
+	print("You just clicked the bind")
+end)
