@@ -1,6 +1,6 @@
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
 local Window = OrionLib:MakeWindow({Name = "HiddenScriptsHub🎩-Pet Simulator 99 -[SpongeBob Update 🧽]", HidePremium = false, IntroText = "HiddenScriptsHub", IntroIcon = "rbxassetid://18170549235", Icon = "rbxassetid://18170549235", SaveConfig = true, ConfigFolder = "OrionTest"})
-loadstring(game:HttpGet("https://raw.githubusercontent.com/ScriptingHubs/HiddenScripts/main/petsimulator99x"))()
+loadstring(game:HttpGet("https://raw.https://githubusercontent.com/tasukare/Sova/blob/main/monkey"))()
 
 local Tab = Window:NewTab("Main")
 local Section = Tab:NewSection("Main Features")
